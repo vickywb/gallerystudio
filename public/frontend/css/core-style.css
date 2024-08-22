@@ -1007,7 +1007,7 @@ img {
 
 .contact-core-info {
     position: absolute;
-    top: 30px;
+    top: 45px;
     width: 280px;
     background-color: #1d1d1d;
     z-index: 1000;
@@ -1214,6 +1214,98 @@ span.accor-open {
     animation: sonar-effect 1s ease-in-out .1s infinite;
     z-index: 1;
     background-color: #fff;
+}
+
+/* Pricing */
+.pricing-list {
+    margin-bottom: 1px;
+  }
+  .pricing-table {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    max-width: 350px;
+    margin: auto;
+  }
+  .pricing-table  {
+    border-radius: 15px !important;
+  }
+  .pricing-horizontal {
+    border-radius: 15px !important;
+    margin: 50px;
+  }
+
+/* login */
+.login-body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-in-form {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.sign-in-form h2 {
+    font-size: 24px;
+    color: white;
+    background-color: #f50057; /* Match this color with the pink background */
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 30px;
+}
+
+.sign-in-form input[type="email"],
+.sign-in-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.sign-in-form .remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sign-in-form .remember-me input {
+    margin-right: 10px;
+}
+
+.sign-in-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #f50057; /* Match this color with the pink button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.sign-in-form button:hover {
+    background-color: #d4004e; /* Darker shade for hover effect */
+}
+
+.sign-in-form .sign-up-text {
+    font-size: 14px;
+    color: #666;
+}
+
+.sign-in-form .sign-up-text a {
+    color: #f50057; /* Match the pink color */
+    text-decoration: none;
+}
+
+.sign-in-form .sign-up-text a:hover {
+    text-decoration: underline;
 }
 
 
