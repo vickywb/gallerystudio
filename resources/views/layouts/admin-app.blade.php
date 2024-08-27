@@ -48,10 +48,30 @@
    </head>
    <body>
 
-    <div class="container">
-        @yield('content')
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+          @include('admin.components.aside')
+        <!-- / Menu -->
+  
+        <!-- Layout container -->
+        <div class="layout-page">
+  
+          <!-- Navbar -->
+          {{-- @include('admin.components.navbar') --}}
+          <!-- / Navbar -->
+  
+          <!-- Content wrapper -->
+            @yield('content')
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+  
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    
+
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('backend/libs/jquery/jquery.js') }}"></script>
