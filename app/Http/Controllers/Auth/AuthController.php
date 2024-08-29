@@ -16,8 +16,6 @@ class AuthController extends Controller
 
     public function loginProccess(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
-
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -32,16 +30,6 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
-
-        if (!$user) {
-           return redirect()->back()->withErrors([
-            'errors' => "Email or password doesn't match."
-           ]);
-        }
-
-        Auth::login($user, true);
-
-        return redirect()->route('admin.dashboard');
     }
 
     public function logout(Request $request)
