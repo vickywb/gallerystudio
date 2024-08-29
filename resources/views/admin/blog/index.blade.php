@@ -1,5 +1,6 @@
 @extends('layouts.admin-app')
 
+@section('title', 'Admin Dashboard - Blog Index')
 @section('content')
 
     @include('admin.components.navbar')
