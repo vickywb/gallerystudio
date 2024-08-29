@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Portofolio')
 @section('content')
     
     <!-- Project Area Start -->

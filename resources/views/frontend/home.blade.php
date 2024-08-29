@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Home')
 @section('content')
 
     <!-- ***** Welcome Area Start ***** -->

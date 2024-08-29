@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Blog')
 @section('content')
         <!-- Blog Area Start -->
         <section class="blog-area section_padding_100 mt-100">

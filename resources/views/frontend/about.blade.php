@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'About')
 @section('content')
     
     <!-- About Me Area Start -->

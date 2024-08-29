@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Package')
 @section('content')
 
     <!-- Start pricing -->
