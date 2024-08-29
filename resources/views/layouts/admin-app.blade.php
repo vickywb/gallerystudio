@@ -9,7 +9,7 @@
        <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
    
        <!-- Title  -->
-       <title>Dashboard backend</title>
+       <title>@yield('title')</title>
    
        <meta name="description" content="" />
 
@@ -39,8 +39,6 @@
    
        <!-- Page CSS -->
         <script src="{{ asset('backend/js/helpers.js') }}"></script>
-
-        
    
        <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
        <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
@@ -57,13 +55,10 @@
         <!-- Layout container -->
         <div class="layout-page">
   
-          <!-- Navbar -->
-          {{-- @include('admin.components.navbar') --}}
-          <!-- / Navbar -->
-  
           <!-- Content wrapper -->
             @yield('content')
           <!-- Content wrapper -->
+          
         </div>
         <!-- / Layout page -->
       </div>
