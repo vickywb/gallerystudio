@@ -1,7 +1,7 @@
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-      <a href="index.html" class="app-brand-link">
+      <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
         <span class="app-brand-logo demo">
           <svg
             width="25"
@@ -69,8 +69,8 @@
 
     <ul class="menu-inner py-1">
       <!-- Dashboard -->
-      <li class="menu-item {{ (request()->is('admin/dashboard*')) ? 'active' : '' }}">
-        <a href="index.html" class="menu-link"> 
+      <li class="menu-item {{ (request()->is('admin')) ? 'active' : '' }}">
+        <a href="{{ route('admin.dashboard') }}" class="menu-link"> 
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Analytics">Dashboard</div>
         </a>
@@ -101,6 +101,27 @@
 
       <!-- Forms & Tables -->
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
+
+      <!-- Category -->
+      <li class="menu-item {{ (request()->is('admin/category*')) ? 'active' : '' }}">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-category"></i>
+          <div data-i18n="Form Layouts">Category</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="{{ route('admin.category.index') }}" class="menu-link">
+              <div data-i18n="Index">Index</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{ route('admin.category.create') }}" class="menu-link">
+              <div data-i18n="Create">Create</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
       <!-- About -->
       <li class="menu-item {{ (request()->is('admin/about*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -109,12 +130,12 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="{{ route('about.index') }}" class="menu-link">
+            <a href="{{ route('admin.about.index') }}" class="menu-link">
               <div data-i18n="Index">Index</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="{{ route('about.create') }}" class="menu-link">
+            <a href="{{ route('admin.about.create') }}" class="menu-link">
               <div data-i18n="Create">Create</div>
             </a>
           </li>
@@ -122,19 +143,19 @@
       </li>
 
       <!-- Portofolio -->
-      <li class="menu-item">
+      <li class="menu-item {{ (request()->is('admin/portofolio*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-images"></i>
           <div data-i18n="Form Layouts">Portofolio</div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="form-layouts-vertical.html" class="menu-link">
+            <a href="{{ route('admin.portofolio.index') }}" class="menu-link">
               <div data-i18n="Index">Index</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="form-layouts-horizontal.html" class="menu-link">
+            <a href="{{ route('admin.portofolio.create') }}" class="menu-link">
               <div data-i18n="Create">Create</div>
             </a>
           </li>
@@ -142,19 +163,19 @@
       </li>
 
       <!-- Blog -->
-      <li class="menu-item">
+      <li class="menu-item {{ (request()->is('admin/blog*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-task"></i>
           <div data-i18n="Form Layouts">Blog</div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="form-layouts-vertical.html" class="menu-link">
+            <a href="{{ route('admin.blog.index') }}" class="menu-link">
               <div data-i18n="Index">Index</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="form-layouts-horizontal.html" class="menu-link">
+            <a href="{{ route('admin.blog.create') }}" class="menu-link">
               <div data-i18n="Create">Create</div>
             </a>
           </li>
@@ -162,34 +183,34 @@
       </li>
 
       <!-- Package -->
-      <li class="menu-item">
+      <li class="menu-item {{ (request()->is('admin/package*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-purchase-tag"></i>
           <div data-i18n="Form Layouts">Package</div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="form-layouts-vertical.html" class="menu-link">
+            <a href="{{ route('admin.package.index') }}" class="menu-link">
               <div data-i18n="Index">Index</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="form-layouts-horizontal.html" class="menu-link">
+            <a href="{{ route('admin.package.create') }}" class="menu-link">
               <div data-i18n="Create">Create</div>
             </a>
           </li>
         </ul>
       </li>
       
-      <!-- About -->
-      <li class="menu-item">
+      <!-- Contact -->
+      <li class="menu-item {{ (request()->is('admin/contact*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bxs-contact"></i>
           <div data-i18n="Form Layouts">Contact</div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="form-layouts-vertical.html" class="menu-link">
+            <a href="{{ route('admin.contact.index') }}" class="menu-link">
               <div data-i18n="Index">Index</div>
             </a>
           </li>
@@ -200,7 +221,7 @@
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Account</span></li>
       <li class="menu-item">
         <a
-          href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+          href="{{ route('admin.logout') }}"
           target="_blank"
           class="menu-link"
         >
