@@ -9,7 +9,7 @@
        <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
    
        <!-- Title  -->
-       <title>Login Admin</title>
+       <title>@yield('title')</title>
    
        <!-- Core Style CSS -->
        <link rel="stylesheet" href="{{ asset('frontend/css/core-style.css') }}">
