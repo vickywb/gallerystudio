@@ -10,8 +10,9 @@
    
        <!-- Title  -->
        <title>@yield('title')</title>
-   
-       <meta name="description" content="" />
+
+       <!-- Meta Ads -->
+       <meta name="description" content="pohotgrapher, photo studio, studio" />
 
        <!-- Favicon -->
        <link rel="icon" type="image/x-icon" href="{{ asset('backend/img/favicon/favicon.ico') }}" />
