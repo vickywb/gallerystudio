@@ -31,7 +31,7 @@ class PortofolioRepository {
         $this->model->where($column, $value)->first();
     }
 
-    public function save(Portofolio $portofolio)
+    public function store(Portofolio $portofolio)
     {
         $portofolio->save();
 
