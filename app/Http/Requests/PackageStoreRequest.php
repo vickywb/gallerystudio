@@ -11,7 +11,7 @@ class PackageStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class PackageStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required',
+            'price' => 'required',
+            'description' => 'required'
         ];
     }
 }
