@@ -24,4 +24,11 @@ class PortofolioImage extends Model
     {
         return $this->belongsTo(Portofolio::class);
     }
+
+    protected function showFile(): Attribute
+    {
+        return new Attribute (
+            get: fn () => Storage::url($this->location)
+        );
+    }
 }
