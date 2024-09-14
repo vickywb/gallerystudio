@@ -5986,24 +5986,24 @@ a.bg-lightest:hover, a.bg-lightest:focus {
 }
 
 .text-light {
-  color: #b4bdc6 !important;
+  color: #fafafa !important;
 }
 .text-light[href]:hover, .text-light[href]:focus {
-  color: #8e9baa !important;
+  color: #fafafa !important;
 }
 
 .text-lighter {
-  color: #c7cdd4 !important;
+  color: #fafafa !important;
 }
 .text-lighter[href]:hover, .text-lighter[href]:focus {
-  color: #8e9baa !important;
+  color: #fafafa !important;
 }
 
 .text-lightest {
-  color: #d9dee3 !important;
+  color: #fafafa !important;
 }
 .text-lightest[href]:hover, .text-lightest[href]:focus {
-  color: #8e9baa !important;
+  color: #fafafa !important;
 }
 
 .invert-text-white {
@@ -10005,7 +10005,7 @@ button.list-group-item-gray.active {
 
 .text-light {
   --bs-text-opacity: 1;
-  color: #b4bdc6 !important;
+  color: #fafafa !important;
 }
 
 .text-dark {
