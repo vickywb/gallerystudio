@@ -60,7 +60,6 @@ class AboutController extends Controller
 
             //Storing information to repository with the key "location"
             $uploadedFile = $this->fileRepository->store($request->only('location'));
-       
 
             //Merger the file id into the request
             $request->merge([
@@ -90,7 +89,7 @@ class AboutController extends Controller
         }
 
         return to_route('admin.about.index')->with([
-            'success' => 'New About has successfully created.'
+            'success' => 'New About has been successfully created.'
         ]);
     }
 
@@ -130,8 +129,9 @@ class AboutController extends Controller
                 'file_id' => $uploadedFile->id
             ]);
 
-            //Check file id
+            //Check file id is exist
             if ($about->file_id) {
+                //Create variable to store the key
                 $oldFileName = $about->file->location;
             }
 
@@ -156,8 +156,9 @@ class AboutController extends Controller
             $about = $about->fill($data);
             $about = $this->aboutRepository->store($about);
 
-            //Check delete old file name if exist
+            //Checked if variable oldfilename isn't null
             if (isset($oldFileName)) {
+                //delete file from filesystem
                 Storage::delete($oldFileName);
             }
 
@@ -197,6 +198,7 @@ class AboutController extends Controller
                 $file = File::find($about->file->id)->delete();
             }
             
+            //Remove record from a table 
             $about->delete();
 
             DB::commit();
