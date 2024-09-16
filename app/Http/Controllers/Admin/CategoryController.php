@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Repositories\CategoryRepository;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
-use App\Repositories\CategoryRepository;
 
 class CategoryController extends Controller
 {
@@ -46,11 +47,15 @@ class CategoryController extends Controller
         $data = $request->only('title', 'slug');
         
         try {
+            DB::beginTransaction();
+            
             //Store new data 
             $category = new Category($data);
             $category = $this->categoryRepository->store($category);
             
+            DB::commit();
         } catch (\Throwable $th) {
+            DB::rollback();
             return redirect()->back()->withErrors([
                 'errors' => $th->getMessage()
             ]);
@@ -81,12 +86,14 @@ class CategoryController extends Controller
         ]);
 
         try {
-
+            DB::beginTransaction();
             //Store data from variable data
             $category = $category->fill($data);
             $category = $this->categoryRepository->store($category);
 
+            DB::commit();
         } catch (\Throwable $th) {
+            DB::rollback();
             return redirect()->back()->withErrors([
                 'errors' => $th->getMessage()
             ]);
@@ -100,11 +107,14 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         try {
+            DB::beginTransaction();
             
-            //Remove record from a table 
+            //Delete a record from a specific table
             $category->delete();
 
+            DB::commit();
         } catch (\Throwable $th) {
+            DB::rollback();
             return redirect()->back()->withErrors([
                 'errors' => $th->getMessage()
             ]);
