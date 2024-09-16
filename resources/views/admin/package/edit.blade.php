@@ -4,11 +4,14 @@
 @section('content')
 
     <div class="container-xxl flex-grow-1 container-p-y">
-      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms /</span> Create Package</h4>
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms /</span> Edit Package</h4>
 
-      <form action="{{ route('admin.package.update') }}" method="post">
+      {{-- include message alert --}}
+      @include('components._messages')
+
+      <form action="{{ route('admin.package.update', $package) }}" method="post">
         @csrf
-        @method('patch')
+        @method('PATCH')
 
         <div class="col-md-12">
           <div class="card mb-4">
@@ -20,8 +23,10 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="title"
                   id="exampleFormControlInput1"
                   placeholder="Package title.."
+                  value="{{ old('title', $package->title) }}"
                 />
               </div>
 
@@ -30,14 +35,16 @@
                 <input
                   type="number"
                   class="form-control"
+                  name="price"
                   id="exampleFormControlInput1"
                   placeholder="0"
+                  value="{{ old('price', $package->price) }}"
                 />
               </div>
               
               <div>
                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description.."></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" placeholder="Description..">{{ old('description', $package->description) }}</textarea>
               </div>
             </div>
 

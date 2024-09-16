@@ -6,6 +6,9 @@
     <div class="container-xxl flex-grow-1 container-p-y">
       <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms /</span> Create Package</h4>
 
+      {{-- include message alert --}}
+      @include('components._messages')
+
       <form action="{{ route('admin.package.store') }}" method="post">
         @csrf
 
@@ -20,7 +23,9 @@
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
+                  name="title"
                   placeholder="Package title.."
+                  value="{{ old('title') }}"
                 />
               </div>
 
@@ -30,13 +35,15 @@
                   type="number"
                   class="form-control"
                   id="exampleFormControlInput1"
+                  name="price"
                   placeholder="0"
+                  value="{{ old('price') }}"
                 />
               </div>
              
               <div>
                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description.."></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" placeholder="Description.."></textarea>
               </div>
             </div>
 
