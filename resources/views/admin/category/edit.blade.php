@@ -6,9 +6,12 @@
     <div class="container-xxl flex-grow-1 container-p-y">
       <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms /</span> Edit Category</h4>
 
-      <form action="{{ route('admin.category.update') }}" method="post">
+      {{-- include components message --}}
+      @include('components._messages')
+
+      <form action="{{ route('admin.category.update', $category) }}" method="post">
         @csrf
-        @method('patch')
+        @method('PATCH')
 
         <div class="col-md-12">
           <div class="card mb-4">
@@ -20,8 +23,10 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="title"
                   id="exampleFormControlInput1"
                   placeholder="Category title.."
+                  value="{{ old('title', $category->title) }}"
                 />
               </div>
             </div>
