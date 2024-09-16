@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -14,22 +15,13 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function loginProccess(Request $request)
+    public function loginProccess(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+        $request->authenticate();
  
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        $request->session()->regenerate();
  
-            return redirect()->intended(route('admin.dashboard'));
-        }
- 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        return redirect()->intended(route('admin.dashboard'));
     }
 
     public function logout(Request $request)
@@ -41,5 +33,10 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
      
         return redirect()->route('home');
+    }
+
+    public function throttleKey(Request $request)
+    {
+        return Str::lower($request->input('email')) . '|' . $request->ip();
     }
 }
