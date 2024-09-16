@@ -198,11 +198,10 @@ class AboutController extends Controller
                 $file = File::find($about->file->id)->delete();
             }
             
-            //Remove record from a table 
+            //Delete a record from a specific table
             $about->delete();
 
             DB::commit();
-
         } catch (\Throwable $th) {
             DB::rollback();
 
