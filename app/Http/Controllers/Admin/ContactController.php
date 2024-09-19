@@ -2,43 +2,51 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Repositories\ContactRepository;
 
 class ContactController extends Controller
 {
+    private $contactRepository;
+
+    public function __construct(ContactRepository $contactRepository) 
+    {
+        $this->contactRepository = $contactRepository;
+    }
+    
     public function index()
     {
-        //
-    }
+        $contacts = $this->contactRepository->get([
+            'order' => 'created_at desc'
+        ]);
 
-    public function create()
-    {
-        //
+        return view('admin.contact.index', [
+            'contacts' => $contacts
+        ]);
     }
-
-    public function store(Request $request)
+    
+    public function destroy(Contact $contact)
     {
-        //
-    }
+        try {
+            DB::beginTransaction();
+            
+            //Delete a record from a specific table
+            $contact->delete();
 
-    public function show(string $id)
-    {
-        //
-    }
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
 
-    public function edit(string $id)
-    {
-        //
-    }
+            return redirect()->back()->withErrors([
+                'errors' => $th->getMessage()
+            ]);
+        }
 
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(string $id)
-    {
-        //
+        return to_route('admin.contact.index')->with([
+            'message' => 'Contact has been successfully deleted.'
+        ]);
     }
 }
