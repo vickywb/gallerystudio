@@ -6,35 +6,56 @@
     <!-- Contact Section -->
     <section class="contact-area section_padding_100 mt-100">
         <div class="container">
+
+            {{-- Alert Message --}}
+            @session('success')
+            <div class="alert alert-success" role="alert" id="alertMessage">
+                <div class="d-flex flex-column text-light pe-0 pe-sm-10">
+                    <h4 class="mb-2 text-light text-center">Success</h4>
+                </div>
+                <div class="modal-body text-center">
+                    {{ $value }}
+                </div>
+            </div>
+            @endsession
+            
+            {{-- content heading --}}
             <div class="row justify-content-center">
                 <div class="col-10">
                     <div class="contact-heading-text text-center mb-100">
                         <span></span>
                         <h2>Please get in touch</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lectus eu felis semper finibus ac eget ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate id justo quis facilisis. Vestibulum id orci ligula. Sed tempor, nunc ut sodales pulvinar, mauris ante euismod magna, at elementum lectus leo sed enim. Praesent dictum suscipit tincidunt. Nulla facilisi. Aenean in mollis orci. Ut interdum vulputate ante a egestas. Pellentesque varius purus malesuada arcu semper vehicula. </p>
+                        <p>
+                            Questions and comments are important to us, so please use the form below to contact our crew. 
+                            We will reply as soon as possible. Guarantee a response within 24 hours!
+                        </p>
                     </div>
                 </div>
+
                 <!-- Contact Form Area -->
                 <div class="col-10">
                     <div class="contact-form-area">
-                        <form action="#" method="post">
+                        <form action="{{ route('contact.store') }}" method="post">
+                            @csrf
+
                             <div class="row">
                                 <div class="col-12 col-md-4">
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Your Name">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Your Name *" required>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email *" required>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
                                 </div>
                                 <div class="col-12">
-                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message *" required></textarea>
                                 </div>
                                 <div class="col-12 text-center">
                                     <button type="submit" class="btn studio-btn mt-3"><img src="{{ asset('frontend/img/core-img/logo-icon.png') }}" alt=""> Send</button>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -43,7 +64,6 @@
     </section>
     <!-- End Contact Section -->
 
-    
     <!-- Google Maps -->
     <div class="map-area">
         <div class="container">
