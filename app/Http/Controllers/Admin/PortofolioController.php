@@ -155,7 +155,7 @@ class PortofolioController extends Controller
                 new UploadFile($file, [
                     'field_name' => 'location',
                     'extension' => $request->file('image')->getClientOriginalExtension(),
-                    'location' => 'Portofolio/'
+                    'location' => 'portofolio/'
                 ], $request);
 
                 //Storing information to repository with the key "location"
