@@ -40,9 +40,17 @@
                             <a class="dropdown-item" href="{{ route('admin.category.edit', $category) }}"
                               ><i class="bx bx-edit-alt me-2"></i> Edit</a
                             >
-                            <a class="dropdown-item" href="{{ route('admin.category.delete', $category) }}"
-                              ><i class="bx bx-trash me-2"></i> Delete</a
-                            >
+                            <form action="{{ route('admin.category.delete', $category) }}" method="post">
+                              @csrf
+                              @method('DELETE')
+                              <button
+                                  onclick="return confirm('Are you sure to delete?')"
+                                  type="submit"
+                                  class="dropdown-item"
+                              >
+                              <i class="bx bx-trash me-1"></i> Delete
+                              </button>
+                            </form>
                           </div>
                         </div>
                       </td>

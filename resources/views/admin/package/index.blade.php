@@ -32,7 +32,7 @@
                       <td>{{ $loop->iteration }}</td>
                       <td>{{ $package->title }}</td>
                       <td>Rp. {{ number_format($package->price, 2, ',', '.')  }}</td>
-                      <td>{{ $package->description }}</td>
+                      <td>{!! Str::words($package->description, 15) !!}</td>
                       <td>
                         <div class="dropdown">
                           <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -42,9 +42,17 @@
                             <a class="dropdown-item" href="{{ route('admin.package.edit', $package) }}"
                               ><i class="bx bx-edit-alt me-1"></i> Edit</a
                             >
-                            <a class="dropdown-item" href="{{ route('admin.package.delete', $package) }}"
-                              ><i class="bx bx-trash me-1"></i> Delete</a
-                            >
+                            <form action="{{ route('admin.package.delete', $package) }}" method="post">
+                              @csrf
+                              @method('DELETE')
+                              <button
+                                  onclick="return confirm('Are you sure to delete?')"
+                                  type="submit"
+                                  class="dropdown-item"
+                              >
+                              <i class="bx bx-trash me-1"></i> Delete
+                              </button>
+                            </form>
                           </div>
                         </div>
                       </td>

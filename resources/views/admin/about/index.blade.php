@@ -31,7 +31,7 @@
                     <tr>
                       <th>{{ $loop->iteration }}</th>
                       <td>{{ $about->title }}</td>
-                      <td>{{ $about->description }}</td>
+                      <td>{!! Str::words($about->description, 15) !!}</td>
                       <td>
                         <img src="{{ $about->file->showFile ?? asset('backend/img/no-image.png') }}" alt="Avatar" class="rounded-circle m-0" style="width: 75px; height: 75px" />
                       </td>
@@ -44,9 +44,17 @@
                             <a class="dropdown-item" href="{{ route('admin.about.edit', $about) }}"
                               ><i class="bx bx-edit-alt me-1"></i> Edit</a
                             >
-                            <a class="dropdown-item" href="{{ route('admin.about.delete', $about) }}"
-                              ><i class="bx bx-trash me-1"></i> Delete</a
-                            >
+                            <form action="{{ route('admin.about.delete', $about) }}" method="post">
+                              @csrf
+                              @method('DELETE')
+                              <button
+                                  onclick="return confirm('Are you sure to delete?')"
+                                  type="submit"
+                                  class="dropdown-item"
+                              >
+                              <i class="bx bx-trash me-1"></i> Delete
+                              </button>
+                            </form>
                           </div>
                         </div>
                       </td>
