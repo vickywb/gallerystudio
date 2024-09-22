@@ -27,9 +27,7 @@
 
         @include('frontend.components.sidebar-section')
 
-        <div class="container">
-            @yield('content')
-        </div>
+        @yield('content')
         
         <!-- jQuery (Necessary for All JavaScript Plugins) -->
         <script src="{{ asset('frontend/js/jquery/jquery-2.2.4.min.js') }}"></script>
