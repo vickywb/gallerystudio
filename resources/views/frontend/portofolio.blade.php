@@ -7,81 +7,29 @@
     <div class="gallery_area clearfix">
         <div class="container-fluid clearfix">
             <div class="gallery_menu">
-                <div class="portfolio-menu">
-                    <button class="active btn" type="button" data-filter="*">All</button>
-                    <button class="btn" type="button" data-filter=".portraits">Portraits</button>
-                    <button class="btn" type="button" data-filter=".weddings">Weddings</button>
-                    <button class="btn" type="button" data-filter=".studio">Studio</button>
-                    <button class="btn" type="button" data-filter=".fashion">Fashion</button>
-                    <button class="btn" type="button" data-filter=".life">Lifestyle</button>
+               <div class="portfolio-menu">
+                <button class="active btn" type="button" data-filter="*">All</button>
+            @foreach ($categories as $category)
+                    <button class="btn " type="button" data-filter=".{{ $category->title }}">{{ $category->title }}</button>
+            @endforeach
+
                 </div>
             </div>
 
             <div class="row portfolio-column">
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits life">
-                    <img src="{{ asset('frontend/img/bg-img/p1.jpg') }}" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="{{ asset('frontend/img/bg-img/p1.jpg') }}"><i class="fa fa-eye"></i></a>
+                @foreach ($portofolios as $portofolio)
+                    @foreach ($portofolio->portofolioImages as $image)
+            
+                    <!-- Single Item -->
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item {{ $portofolio->category->title }}">
+                        <img src="{{ $image->showFile ?? asset('frontend/img/no-image.png') }}" alt="">
+                        <div class="hover_overlay">
+                            <a class="gallery_img" href="{{ $image->showFile ?? asset('frontend/img/no-image.png') }}"><i class="fa fa-eye"></i></a>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings">
-                    <img src="{{ asset('frontend/img/bg-img/p2.jpg') }}" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="{{ asset('frontend/img/bg-img/p2.jpg') }}"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
-                    <img src="{{ asset('frontend/img/bg-img/p3.jpg') }}" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="{{ asset('frontend/img/bg-img/p3.jpg') }}"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings life">
-                    <img src="{{ asset('frontend/img/bg-img/p4.jpg') }}" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="{{ asset('frontend/img/bg-img/p4.jpg') }}"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings">
-                    <img src="{{ asset('frontend/img/bg-img/p5.jpg') }}" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="{{ asset('frontend/img/bg-img/p5.jpg') }}"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
-                    <img src="{{ asset('frontend/img/bg-img/p6.jpg') }}" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="{{ asset('frontend/img/bg-img/p6.jpg') }}"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio">
-                    <img src="{{ asset('frontend/img/bg-img/p7.jpg') }}" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="{{ asset('frontend/img/bg-img/p7.jpg') }}"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio life">
-                    <img src="{{ asset('frontend/img/bg-img/p8.jpg') }}" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="{{ asset('frontend/img/bg-img/p8.jpg') }}"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
+                    
+                    @endforeach
+                @endforeach
             </div>
 
             <div class="row">
