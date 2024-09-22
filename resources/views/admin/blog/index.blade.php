@@ -64,6 +64,9 @@
                 </table>
               </div>
             </div>
+            <div class="pagination justify-content-center mt-5">
+              {{ $blogs->links() }}
+            </div>
         </div>
     </div>
     
