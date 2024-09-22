@@ -26,19 +26,19 @@
                   id="exampleFormControlInput1"
                   name="title"
                   placeholder="Blog Title.."
-                  value="{{ old('title') }}"
+                  value="{{ old('title', $blog->title) }}"
                 />
               </div>
 
               <div class="mb-3">
                   <label for="formFile" class="form-label">Images Upload</label>
-                  <input class="form-control" type="file" id="formFile" name="image[]"/>
+                  <input class="form-control" type="file" id="formFile" name="images[]"/>
                   <span class="text-danger" style="font-size: 12px">max-files: 2 Mb</span>
               </div>
             
               <div>
                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" placeholder="Description.."></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" placeholder="Description..">{{ old('description', $blog->description) }}</textarea>
               </div>
             </div>
 
