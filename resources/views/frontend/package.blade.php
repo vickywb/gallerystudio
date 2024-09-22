@@ -3,7 +3,7 @@
 @section('title', 'Package')
 @section('content')
 
-    <!-- Start pricing -->
+    <!-- Start Pricing -->
     <div class="container py-5">
         <div class="col-md-12 text-center py-5">
             <h1 class="h2">
@@ -12,65 +12,48 @@
             <p>Hey There!, we have the best package for you to choose.</p>
         </div>
 
-        <div class="row">
-            <div class="col-md-4 pb-5 mt-5">
-                <div class="pricing-table card h-100 py-5">
-                    <div class="card-body text-center align-self-center p-md-0">
-                        <h2 class="h5">Free Plan</h2>
-                        <p>$0</p>
-                        <ul class="text-dark">
-                            <li><i class="bxs-circle me-2"></i>5 Users</li>
-                            <li><i class="bx bxs-circle me-2"></i>2 TB space</li>
-                            <li><i class="bx bxs-circle me-2"></i>Community Forums</li>
-                            <li><i class=" me-2"></i>Email Support</li>
-                        </ul>
-                        <div class="pt-5">
-                            <a href="#" class="btn px-4 btn-outline-primary">Get Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-4 pt-3">
-                <div class="pricing-table card h-100 py-5">
-                    <div class="card-body text-center align-self-center p-md-0">
-                        <i class="py-3"></i>
-                        <h2 class="pricing-table-heading h5">Standard Plan</h2>
-                        <p>$120/Year</p>
-                        <ul class="text-dar">
-                            <li><i class="bx bxs-circle me-2"></i>25 to 99 Users</li>
-                            <li><i class="bx bxs-circle me-2"></i>10 TB space</li>
-                            <li><i class="bx bxs-circle me-2"></i>Source Files</li>
-                            <li><i class="bx bxs-circle me-2"></i>Live Chat</li>
-                        </ul>
-                        <div class="pricing-table-footer pt-5 pb-2">
-                            <a href="#" class="btn px-4 btn-outline-primary">Get Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-md-4 pb-5 mt-5">
-                <div class="pricing-table card h-100 py-5">
-                    <div class="card-body text-center align-self-center p-md-0">
-                        <h2 class="h5">Free Plan</h2>
-                        <p>$0</p>
-                        <ul class="text-dark">
-                            <li class="bx bxs-circle me-2">5 Users</li>
-                            <li><i class="bx bxs-circle me-2"></i>5 Users</li>
-                            <li><i class="bx bxs-circle me-2"></i>2 TB space</li>
-                            <li><i class="bx bxs-circle me-2"></i>Community Forums</li>
-                            <li><i class="bx bxs-circle me-2"></i>Email Support</li>
-                        </ul>
-                        <div class="pt-5">
-                            <a href="#" class="btn px-4 btn-outline-primary">Get Now</a>
+        <div class="row">
+
+            @foreach ($packages as $package)
+            
+                @if ($package->title == 'Gold')
+
+                <div class="col-md-4 pt-3">
+                    <div class="pricing-table card h-100 py-5">
+                        <div class="card-body text-center align-self-center p-md-0">
+                            <h2 class="pricing-table-heading h5">{{ $package->title }}</h2>
+                            <p>Rp. {{ number_format($package->price, 2, ',', '.')  }}</p>
+                            <p class="text-dark">{{ $package->description }}</p>
+                            <div class="pricing-table-footer pt-5 pb-2">
+                                <a href="#" class="btn px-4 btn-outline-primary">Get Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+                @else
+
+                <div class="col-md-4 pb-5 mt-5">
+                    <div class="pricing-table card h-100 py-5">
+                        <div class="card-body text-center align-self-center p-md-0">
+                            <h2 class="pricing-table-heading h5">{{ $package->title }}</h2>
+                            <p>Rp. {{ number_format($package->price, 2, ',', '.')  }}</p>
+                            <p class="text-dark">{{ $package->description }}</p>
+                            <div class="pricing-table-footer pt-5 pb-2">
+                                <a href="#" class="btn px-4 btn-outline-primary">Get Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @endif
+           
+            @endforeach
+          
         </div>
     </div>
-    <!-- End Content -->
+    <!-- End Pricing -->
 
 
 
