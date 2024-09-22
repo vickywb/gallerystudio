@@ -22,7 +22,7 @@ class PortofolioUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => 'required|exists:portofolio,category_id',
+            'category_id' => 'required',
             'title' => 'required',
             'description' => 'required',
             'image' => 'mimes:png,jpg|max:2048'
