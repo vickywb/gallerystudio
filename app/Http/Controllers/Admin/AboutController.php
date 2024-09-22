@@ -51,7 +51,7 @@ class AboutController extends Controller
             //Retrieving the Uploaded File
             $file = $request->file('image')->get();
 
-            //Helpers check
+            //Use Helpers
             new UploadFile($file, [
                 'field_name' => 'location',
                 'extension' => $request->file('image')->getClientOriginalExtension(),
@@ -114,7 +114,7 @@ class AboutController extends Controller
             //Retrieving the Uploaded File
             $file = $request->file('image')->get();
 
-            //Helpers check
+            //Use Helpers
             new UploadFile($file, [
                 'field_name' => 'location',
                 'extension' => $request->file('image')->getClientOriginalExtension(),
@@ -133,14 +133,6 @@ class AboutController extends Controller
             if ($about->file_id) {
                 //Create variable to store the key
                 $oldFileName = $about->file->location;
-            }
-
-            //Check File is empty or not
-            if (!$unusedFiles->isEmpty()) {
-                //File which not in relation will be execute 
-                foreach ($unusedFiles as $file) {
-                    $file->delete();
-                }
             }
         }
 
@@ -162,6 +154,16 @@ class AboutController extends Controller
                 Storage::delete($oldFileName);
             }
 
+            //Check File is empty or not
+            if (!$unusedFiles->isEmpty()) {
+                //File which not in relation will be execute 
+                foreach ($unusedFiles as $file) {
+                    $file->delete();
+                }
+            }
+             // Delete the file record from the specific table
+             $file = File::find($about->file->id)->delete();
+
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollback();
@@ -178,6 +180,13 @@ class AboutController extends Controller
 
     public function destroy(About $about)
     {
+        //Get Unused File according id and location
+        $unusedFiles = File::select('id', 'location')
+        ->doesntHave('abouts')
+        ->doesntHave('portofolioImages')
+        ->doesntHave('blogImages')
+        ->get();
+
         try {
             DB::beginTransaction();
 
@@ -192,6 +201,14 @@ class AboutController extends Controller
                 //Delete the existing file in the storage
                 if (isset($oldFileName)) {
                     Storage::delete($oldFileName);
+                }
+                
+                //Check File is empty or not
+                if (!$unusedFiles->isEmpty()) {
+                    //File which not in relation will be execute 
+                    foreach ($unusedFiles as $file) {
+                        $file->delete();
+                    }
                 }
 
                 // Delete the file record from the database

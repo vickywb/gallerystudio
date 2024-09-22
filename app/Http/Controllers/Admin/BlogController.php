@@ -32,7 +32,8 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = $this->blogRepository->get([
-            'order' => 'title desc'
+            'order' => 'title desc',
+            'pagination' => 5
         ]);
 
         return view('admin.blog.index', [
@@ -47,6 +48,7 @@ class BlogController extends Controller
 
     public function store(BlogStoreRequest $request, Blog $blog)
     {
+        //Create variable to store array data
         $listImages = [];
 
         //Merger the file id into the request
@@ -62,12 +64,14 @@ class BlogController extends Controller
         try {
             DB::beginTransaction();
 
+            //Store new data
             $blog = new Blog($data);
             $blog = $this->blogRepository->store($blog);
 
             if ($request->hasFile('images')) {
                 foreach ($request->images as $image) {
                     
+                    //Use Helpers
                     new UploadFile($image->get(), [
                         'field_name' => 'location',
                         'extension' => $image->getClientOriginalExtension(),
@@ -75,8 +79,10 @@ class BlogController extends Controller
                     ], $request);
                 }
 
+                //Storing information to repository with the key "location"
                 $uploadedFile = $this->fileRepository->store($request->only('location'));
 
+                //Store data in array
                 $listImages[] = [
                     'file_id' => $uploadedFile->id,
                     'blog_id' => $blog->id
@@ -108,8 +114,10 @@ class BlogController extends Controller
 
     public function update(BlogUpdateRequest $request, Blog $blog)
     {
+        //Create variable to store array data
         $listImages = [];
 
+        //Get Unused File according id and location
         $unusedFiles = File::select('id', 'location')
             ->doesntHave('abouts')
             ->doesntHave('portofolioImages')
@@ -128,32 +136,47 @@ class BlogController extends Controller
         try {
             DB::beginTransaction();
 
+            //Fill request data and store the data
             $blog = $blog->fill($data);
             $blog = $this->blogRepository->store($blog);
 
             if ($request->hasFile('images')) {
                 foreach ($request->images as $image) {
                     
+                    //Use Helpers
                     new UploadFile($image->get(), [
                         'field_name' => 'location',
                         'extension' => $image->getClientOriginalExtension(),
                         'location' => 'blog/'
                     ], $request);
 
+                    //Storing information to repository with the key "location"
                     $uploadedFile = $this->fileRepository->store($request->only('location'));
-
-                    if ($blog->blogImages->file_id) {
-                        $oldFileName = $blog->blogImages->file->location;
-                    }
-
-                      //Check File is empty or not
-                    if (!$unusedFiles->isEmpty()) {
-                        //File which not in relation will be execute 
-                        foreach ($unusedFiles as $file) {
-                            $file->delete();
+                    
+                    foreach ($blog->blogImages as $blogImage) {
+                        //Check file_id
+                        if ($blogImage->file_id) {
+                            $oldFileName = $blogImage->file->location;
                         }
+
+                        //Delete the existing file in the storage
+                        if (isset($oldFileName)) {
+                            Storage::delete($oldFileName);
+                        }
+
+                        //Check File is empty or not
+                        if (!$unusedFiles->isEmpty()) {
+                            //File which not in relation will be execute 
+                            foreach ($unusedFiles as $file) {
+                                $file->delete();
+                            }
+                        }
+        
+                        // Delete the file record from the specific table
+                        $file = File::find($blogImage->file->id)->delete();
                     }
 
+                    //Store data in array
                     $listImages[] = [
                         'file_id' => $uploadedFile->id,
                         'blog_id' => $blog->id
@@ -161,6 +184,7 @@ class BlogController extends Controller
                 }
             }
 
+            //Store data listImages to relation table
             $blog->blogImages()->createMany($listImages);
 
             DB::commit();
@@ -179,25 +203,36 @@ class BlogController extends Controller
 
     public function destroy(Blog $blog)
     {
+        //Get Unused File according id and location
+        $unusedFiles = File::select('id', 'location')
+        ->doesntHave('abouts')
+        ->doesntHave('portofolioImages')
+        ->doesntHave('blogImages')
+        ->get();
+
         try {
             DB::beginTransaction();
 
-            if (!empty($blog->blogImages->file_id)) {
+            foreach ($blog->blogImages as $blogImage) {
+                //Check file_id
+                if (!empty($blogImage->file_id)) {
                 
-                // Retrieve the location of the old file
-                if ($blog->blogImages->file_id) {
-                    $oldFileName = $blog->blogImages->file->location;
+                    // Retrieve the location of the old file
+                    if ($blogImage->file_id) {
+                        //Store location file in the variable OldFileName
+                        $oldFileName = $blogImage->file->location;
+                    }
+    
+                    //Delete the existing file in the storage
+                    if (isset($oldFileName)) {
+                        Storage::delete($oldFileName);
+                    }
+    
+                    // Delete the file record from the specific table
+                    $file = File::find($blogImage->file->id)->delete();
                 }
-
-                //Delete the existing file in the storage
-                if (isset($oldFileName)) {
-                    Storage::delete($oldFileName);
-                }
-
-                // Delete the file record from the specific table
-                $file = File::find($blog->blogImages->file->id)->delete();
             }
-
+         
             //Delete a record from a specific table
             $blog->delete();
 

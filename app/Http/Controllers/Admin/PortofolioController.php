@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\File;
 use App\Models\Category;
 use App\Models\Portofolio;
 use App\Helpers\UploadFile;
@@ -10,10 +11,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repositories\FileRepository;
+use Illuminate\Support\Facades\Storage;
 use App\Repositories\PortofolioRepository;
 use App\Http\Requests\PortofolioStoreRequest;
 use App\Http\Requests\PortofolioUpdateRequest;
-use App\Models\File;
 
 class PortofolioController extends Controller
 {
@@ -32,7 +33,8 @@ class PortofolioController extends Controller
     public function index()
     {
         $portofolios = $this->portofolioRepository->get([
-            'order' => 'title asc'
+            'order' => 'title asc',
+            'pagination' => 5
         ]);
 
         return view('admin.portofolio.index', [
@@ -66,6 +68,7 @@ class PortofolioController extends Controller
         try {
             DB::beginTransaction();
 
+            //Store new data
             $portofolio = new Portofolio($data);
             $portofolio = $this->portofolioRepository->store($portofolio);
 
@@ -74,7 +77,7 @@ class PortofolioController extends Controller
                 //Retrieving the Uploaded File
                 $file = $request->file('image')->get();
 
-                //Helpers check and store
+                //Use Helpers
                 new UploadFile($file, [
                     'field_name' => 'location',
                     'extension' => $request->file('image')->getClientOriginalExtension(),
@@ -127,7 +130,7 @@ class PortofolioController extends Controller
         $unusedFiles = File::select('id', 'location')
             ->doesntHave('abouts')
             ->doesntHave('portofolioImages')
-            ->doesntHave('blogs')
+            ->doesntHave('blogImages')
             ->get();
 
         $request->merge([
@@ -142,7 +145,7 @@ class PortofolioController extends Controller
         try {
             DB::beginTransaction();
 
-            //Fill request data 
+            //Fill request data and store the data
             $portofolio = $portofolio->fill($data);
             $portofolio = $this->portofolioRepository->store($portofolio);
 
@@ -151,7 +154,7 @@ class PortofolioController extends Controller
                 //Retrieving the Uploaded File
                 $file = $request->file('image')->get();
             
-                //Helpers check
+                //Use Helpers
                 new UploadFile($file, [
                     'field_name' => 'location',
                     'extension' => $request->file('image')->getClientOriginalExtension(),
@@ -161,17 +164,28 @@ class PortofolioController extends Controller
                 //Storing information to repository with the key "location"
                 $uploadedFile = $this->fileRepository->store($request->only('location'));
 
-                //Check file id
-                if ($portofolio->portofolioImages->file_id) {
-                    $oldFileName = $portofolio->portofolioImages->file->location;
-                }
-
-                //Check File is empty or not
-                if (!$unusedFiles->isEmpty()) {
-                    //File which not in relation will be execute 
-                    foreach ($unusedFiles as $file) {
-                        $file->delete();
+                foreach ($portofolio->portofolioImages as $portofolioImage) {
+                    // Retrieve the location of the old file
+                    if ($portofolioImage->file_id) {
+                        //Store location file in the variable OldFileName
+                        $oldFileName = $portofolioImage->file->location;
                     }
+
+                    //Delete the existing file in the storage
+                    if (isset($oldFileName)) {
+                        Storage::delete($oldFileName);
+                    }
+
+                    //Check File is empty or not
+                    if (!$unusedFiles->isEmpty()) {
+                        //File which not in relation will be execute 
+                        foreach ($unusedFiles as $file) {
+                            $file->delete();
+                        }
+                    }
+    
+                    // Delete the file record from the specific table
+                    $file = File::find($portofolioImage->file->id)->delete();
                 }
 
                 //Store data in array
@@ -200,23 +214,42 @@ class PortofolioController extends Controller
 
     public function destroy(Portofolio $portofolio)
     {
+        //Get Unused File according id and location
+        $unusedFiles = File::select('id', 'location')
+        ->doesntHave('abouts')
+        ->doesntHave('portofolioImages')
+        ->doesntHave('blogImages')
+        ->get();
+
         try {
             DB::beginTransaction();
 
-            if (!empty($portofolio->portofolioImages->file_id)) {
-                
-                // Retrieve the location of the old file
-                if ($portofolio->portofolioImages->file_id) {
-                    $oldFileName = $portofolio->portofolioImages->file->location;
-                }
+            foreach ($portofolio->portofolioImages as $portofolioImage) {
+                //Check file_id
+                if (!empty($portofolioImage->file_id)) {
 
-                //Delete the existing file in the storage
-                if (isset($oldFileName)) {
-                    Storage::delete($oldFileName);
-                }
+                    // Retrieve the location of the old file
+                    if ($portofolioImage->file_id) {
+                        //Store location file in the variable OldFileName
+                        $oldFileName = $portofolioImage->file->location;
+                    }
+    
+                    //Delete the existing file in the storage
+                    if (isset($oldFileName)) {
+                        Storage::delete($oldFileName);
+                    }
 
-                // Delete the file record from the specific table
-                $file = File::find($portofolio->portofolioImages->file->id)->delete();
+                    //Check File is empty or not
+                    if (!$unusedFiles->isEmpty()) {
+                        //File which not in relation will be execute 
+                        foreach ($unusedFiles as $file) {
+                            $file->delete();
+                        }
+                    }
+    
+                    // Delete the file record from the specific table
+                    $file = File::find($portofolioImage->file->id)->delete();
+                }
             }
 
             //Delete a record from a specific table
