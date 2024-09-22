@@ -63,9 +63,11 @@
                     </tr>
                   </tbody>
                   @endforeach
-
                 </table>
               </div>
+            </div>
+            <div class="pagination justify-content-center mt-5">
+              {{ $portofolios->links() }}
             </div>
         </div>
     </div>
