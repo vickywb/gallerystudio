@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Storage;
 
 class PortofolioImage extends Model
 {
@@ -24,11 +26,12 @@ class PortofolioImage extends Model
     {
         return $this->belongsTo(Portofolio::class);
     }
-
+    
+    //Accessor
     protected function showFile(): Attribute
     {
         return new Attribute (
-            get: fn () => Storage::url($this->location)
+            get: fn () => Storage::url($this->file->location)
         );
     }
 }
