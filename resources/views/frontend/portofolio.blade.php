@@ -9,8 +9,8 @@
             <div class="gallery_menu">
                <div class="portfolio-menu">
                 <button class="active btn" type="button" data-filter="*">All</button>
-            @foreach ($categories as $category)
-                    <button class="btn " type="button" data-filter=".{{ $category->title }}">{{ $category->title }}</button>
+            @foreach ($portofolios as $categoryItem)
+                    <button class="btn " type="button" data-filter=".{{ $categoryItem->category->title }}">{{ $categoryItem->category->title }}</button>
             @endforeach
 
                 </div>
@@ -22,7 +22,7 @@
             
                     <!-- Single Item -->
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item {{ $portofolio->category->title }}">
-                        <img src="{{ $image->showFile ?? asset('frontend/img/no-image.png') }}" alt="">
+                        <img src="{{ $image->showFile ?? asset('frontend/img/no-image.png') }}" alt="portofolio-image">
                         <div class="hover_overlay">
                             <a class="gallery_img" href="{{ $image->showFile ?? asset('frontend/img/no-image.png') }}"><i class="fa fa-eye"></i></a>
                         </div>
