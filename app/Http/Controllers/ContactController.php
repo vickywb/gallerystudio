@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\DB;
 use App\Repositories\ContactRepository;
 use App\Http\Requests\ContactStoreRequest;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Mews\Captcha\Facades\Captcha;
 
 class ContactController extends Controller
 {
@@ -26,6 +28,18 @@ class ContactController extends Controller
 
     public function store(ContactStoreRequest $request, Contact $contact)
     {
+        //Validator for captcha
+        $validatorCaptcha = Validator::make($request->all(), [
+            'captcha' => 'required|captcha'
+        ]);
+
+        //Check Captcha
+        if ($validatorCaptcha->fails()) {
+            return redirect()->back()->withErrors([
+                'errors' => 'Captcha is invalid.'
+            ]);
+        }
+
         //Store data in variable data
         $data = $request->only([
             'name', 'email', 'subject', 'message'
@@ -50,5 +64,10 @@ class ContactController extends Controller
         return to_route('contact')->with([
             'success' => 'Your Message is successfully send, please be patient we will reply your message ASAP! Thankyou.'
         ]);
+    }
+
+    public function captchaRefresh()
+    {
+        return response()->json(['captcha' => Captcha::img('math')]);
     }
 }
