@@ -42,15 +42,31 @@
                                 <div class="col-12 col-md-4">
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Your Name *" required>
                                 </div>
+
                                 <div class="col-12 col-md-4">
                                     <input type="email" class="form-control" name="email" id="email" placeholder="Your Email *" required>
                                 </div>
+
                                 <div class="col-12 col-md-4">
                                     <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
                                 </div>
+
                                 <div class="col-12">
                                     <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message *" required></textarea>
                                 </div>
+
+                                <div class="col-12 col-sm-2 offset-md-5">
+                                    <div id="captcha-img" alt="captcha-img">
+                                        {!! Captcha::img('math') !!}
+                                    </div>
+                                    <div class="mt-2"></div>
+                                    <input type="text" name="captcha" class="form-control @error('errors') is-invalid @enderror" placeholder="Input Captcha" required>
+                                     @error('errors') 
+                                        <div class="invalid-feedback">{{ $message }}</div> 
+                                     @enderror
+                                     <button type="button" class="btn btn-secondary btn-sm mt-2" id="refresh">Refresh Captcha</button>
+                                </div>
+                                
                                 <div class="col-12 text-center">
                                     <button type="submit" class="btn studio-btn mt-3"><img src="{{ asset('frontend/img/core-img/logo-icon.png') }}" alt=""> Send</button>
                                 </div>
@@ -130,3 +146,39 @@
     </footer>
     <!-- Footer Area End -->
 @endsection
+
+@push('captcha-refresh')
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
+    <script>
+        $(document).ready(function () {
+            $('#refresh').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '{{ route('captcha.refresh') }}',
+                    success: function(data) {
+                        $('#captcha-img').html(data.captcha);
+                    }
+                });
+            });
+        })
+    </script>
+    {{-- <script>
+    $(document).ready(function() {
+
+        $('#refresh').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: '{{ route('captcha.refresh') }}',
+                success: function(data) {
+                    alert(response);
+                    $('#captcha-img').html(data.captcha);
+                }
+            });
+            e.preventDefault();
+        });
+
+    });
+    </script> --}}
+ 
+@endpush
