@@ -23,7 +23,8 @@ Route::get('/portofolios', [PortofolioController::class, 'index'])->name('portof
 Route::get('/blogs', [BlogController::class, 'index'])->name('blog');
 Route::get('/packages', [PackageController::class, 'index'])->name('package');
 Route::get('/contacts', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store')->middleware('throttle:2, 1');
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/captcha-refresh', [ContactController::class, 'captchaRefresh'])->name('captcha.refresh');
 
 //Login Admin Route
 Route::controller(AuthController::class)
