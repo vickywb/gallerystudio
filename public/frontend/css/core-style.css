@@ -812,7 +812,8 @@ img {
     display: flex;
     -webkit-box-align: center;
     -ms-flex-align: center;
-    align-items: center
+    align-items: center;
+    margin-left: 50px;
 }
 
 .single-footer-content > a {
