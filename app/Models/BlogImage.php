@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BlogImage extends Model
 {
@@ -31,7 +31,7 @@ class BlogImage extends Model
     protected function showFile(): Attribute
     {
         return new Attribute (
-            fn () => Storage::url($this->location)
+            fn () => Storage::url($this->file->location)
         );
     }
 }
