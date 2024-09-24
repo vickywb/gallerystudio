@@ -40,5 +40,6 @@
         <!-- Active js -->
         <script src="{{ asset('frontend/js/active.js') }}"></script>
         
+        @stack('script')
     </body>
  </html>
