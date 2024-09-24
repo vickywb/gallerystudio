@@ -2,42 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
+use App\Repositories\BlogRepository;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
+    private $blogRepository;
+
+    public function __construct(BlogRepository $blogRepository) {
+        $this->blogRepository = $blogRepository;
+    }
+
     public function index()
     {
-        return view('frontend.blog');
-    }
+        $blogs = $this->blogRepository->get([
+            'order' => 'created_at desc',
+            'pagination' => 5
+        ]);
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show(string $id)
-    {
-        //
-    }
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(string $id)
-    {
-        //
+        return view('frontend.blog', [
+            'blogs' => $blogs
+        ]);
     }
 }
