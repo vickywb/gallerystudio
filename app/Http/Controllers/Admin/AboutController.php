@@ -134,6 +134,13 @@ class AboutController extends Controller
                 //Create variable to store the key
                 $oldFileName = $about->file->location;
             }
+
+             //Checked if variable oldfilename isn't null
+             if (isset($oldFileName)) {
+                //delete file from filesystem
+                Storage::delete($oldFileName);
+            }
+
         }
 
         //Store request in variable data
@@ -148,22 +155,19 @@ class AboutController extends Controller
             $about = $about->fill($data);
             $about = $this->aboutRepository->store($about);
 
-            //Checked if variable oldfilename isn't null
-            if (isset($oldFileName)) {
-                //delete file from filesystem
-                Storage::delete($oldFileName);
-            }
-
-            //Check File is empty or not
-            if (!$unusedFiles->isEmpty()) {
-                //File which not in relation will be execute 
-                foreach ($unusedFiles as $file) {
-                    $file->delete();
+            if (!empty($request->hasFile('image'))) {
+                
+                //Check File is empty or not
+                if (!$unusedFiles->isEmpty()) {
+                    //File which not in relation will be execute 
+                    foreach ($unusedFiles as $file) {
+                        $file->delete();
+                    }
                 }
+                // Delete the file record from the specific table
+                $file = File::find($about->file->id)->delete();
             }
-             // Delete the file record from the specific table
-             $file = File::find($about->file->id)->delete();
-
+            
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollback();
