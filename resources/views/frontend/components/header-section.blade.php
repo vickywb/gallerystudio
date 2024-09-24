@@ -21,7 +21,7 @@
                 <div class="main-menu h-100">
                     <nav class="navbar h-100 navbar-expand-lg">
                         <!-- Logo Area  -->
-                        <a class="navbar-brand" href="index.html"><img src="{{ asset('frontend/img/core-img/logo.png') }}" alt="Logo"></a>
+                        <a class="navbar-brand" href="/"><img src="{{ asset('frontend/img/core-img/logo.png') }}" alt="Logo"></a>
 
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#studioMenu" aria-controls="studioMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
 
@@ -47,14 +47,6 @@
                                     <a class="nav-link" href="{{ route('contact') }}">contact</a>
                                 </li>
                             </ul>
-                            <!-- Search Form -->
-                            <div class="header-search-form ml-auto">
-                                <form action="#">
-                                    <input type="search" class="form-control" placeholder="Input your keyword then press enter..." id="search" name="search">
-                                    <input class="d-none" type="submit" value="submit">
-                                </form>
-                            </div>
-                            <!-- Search btn -->
                         </div>
                     </nav>
                 </div>
