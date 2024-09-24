@@ -10,9 +10,12 @@ class PortofolioController extends Controller
 {
     public function index()
     {
-        $portofolios = Portofolio::with('category')->get();
+        $categories = Category::all();
+        $portofolios = Portofolio::all();
+        
         return view('frontend.portofolio', [
-            'portofolios' => $portofolios
+            'portofolios' => $portofolios,
+            'categories' => $categories
         ]);
     }
 }
