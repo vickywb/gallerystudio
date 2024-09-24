@@ -59,3 +59,13 @@
       </form>
     </div>
 @endsection
+
+@push('ckeditor')
+    <script>
+         ClassicEditor
+            .create( document.querySelector( '#exampleFormControlTextarea1' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+@endpush

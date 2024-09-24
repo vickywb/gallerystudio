@@ -2,48 +2,48 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-       <meta charset="UTF-8">
-       <meta name="description" content="Studio Gallery">
-       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-       <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <meta charset="UTF-8">
+      <meta name="description" content="Studio Gallery">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
    
-       <!-- Title  -->
-       <title>@yield('title')</title>
+      <!-- Title  -->
+      <title>@yield('title')</title>
 
-       <!-- Meta Ads -->
-       <meta name="description" content="pohotgrapher, photo studio, studio" />
+      <!-- Meta Ads -->
+      <meta name="description" content="pohotgrapher, photo studio, studio" />
 
-       <!-- Favicon -->
-       <link rel="icon" type="image/x-icon" href="{{ asset('backend/img/favicon/favicon.ico') }}" />
+      <!-- Favicon -->
+      <link rel="icon" type="image/x-icon" href="{{ asset('backend/img/favicon/favicon.ico') }}" />
    
-       <!-- Fonts -->
-       <link rel="preconnect" href="https://fonts.googleapis.com" />
-       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-       <link
-         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-         rel="stylesheet"
-       />
+      <!-- Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet"
+      />
    
-       <!-- Icons. Uncomment required icon fonts -->
-       <link rel="stylesheet" href="{{ asset('backend/fonts/boxicons.css') }}" />
+      <!-- Icons. Uncomment required icon fonts -->
+      <link rel="stylesheet" href="{{ asset('backend/fonts/boxicons.css') }}" />
    
-       <!-- Core CSS -->
-       <link rel="stylesheet" href="{{ asset('backend/css/core.css') }}" class="template-customizer-core-css" />
-       <link rel="stylesheet" href="{{ asset('backend/css/theme-default.css') }}" class="template-customizer-theme-css" />
-       <link rel="stylesheet" href="{{ asset('backend/css/demo.css') }}" />
+      <!-- Core CSS -->
+      <link rel="stylesheet" href="{{ asset('backend/css/core.css') }}" class="template-customizer-core-css" />
+      <link rel="stylesheet" href="{{ asset('backend/css/theme-default.css') }}" class="template-customizer-theme-css" />
+      <link rel="stylesheet" href="{{ asset('backend/css/demo.css') }}" />
    
-       <!-- Vendors CSS -->
-       <link rel="stylesheet" href="{{ asset('backend/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+      <!-- Vendors CSS -->
+      <link rel="stylesheet" href="{{ asset('backend/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
    
-       <link rel="stylesheet" href="{{ asset('backend/libs/apex-charts/apex-charts.css') }}" />
-   
-       <!-- Page CSS -->
-        <script src="{{ asset('backend/js/helpers.js') }}"></script>
-   
-       <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-       <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-       <script src="{{ asset('backend/js/config.js') }}"></script>
+      <link rel="stylesheet" href="{{ asset('backend/libs/apex-charts/apex-charts.css') }}" />
+
+      <!-- Page CSS -->
+      <script src="{{ asset('backend/js/helpers.js') }}"></script>
+
+      <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+      <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+      <script src="{{ asset('backend/js/config.js') }}"></script>
    </head>
    <body>
 
@@ -69,6 +69,7 @@
     </div>
 
     <!-- Core JS -->
+
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('backend/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('backend/libs/popper/popper.js') }}"></script>
@@ -89,5 +90,10 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+    <!-- CK Editor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
+    @stack('ckeditor')
    </body>
 </html>
