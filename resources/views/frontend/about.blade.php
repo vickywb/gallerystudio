@@ -19,7 +19,7 @@
                     <div class="about-content mt-100 mb-100">
                         <span></span>
                         <h2 class="text-center">What can I tell you about me?</h2>
-                        <p class="text-start">&nbsp; {{ $about->description }}</p>
+                        <p class="text-start">{!! $about->description !!}</p>
                     </div>
                 </div>
 

@@ -12,7 +12,6 @@
             <p>Hey There!, we have the best package for you to choose.</p>
         </div>
 
-
         <div class="row">
 
             @foreach ($packages as $package)
@@ -24,7 +23,7 @@
                         <div class="card-body text-center align-self-center p-md-0">
                             <h2 class="pricing-table-heading h5">{{ $package->title }}</h2>
                             <p>Rp. {{ number_format($package->price, 2, ',', '.')  }}</p>
-                            <p class="text-dark">{{ $package->description }}</p>
+                            <p class="text-dark">{!! $package->description !!}</p>
                             <div class="pricing-table-footer pt-5 pb-2">
                                 <a href="#" class="btn px-4 btn-outline-primary">Get Now</a>
                             </div>
@@ -39,7 +38,7 @@
                         <div class="card-body text-center align-self-center p-md-0">
                             <h2 class="pricing-table-heading h5">{{ $package->title }}</h2>
                             <p>Rp. {{ number_format($package->price, 2, ',', '.')  }}</p>
-                            <p class="text-dark">{{ $package->description }}</p>
+                            <p class="text-dark text-start">{!! $package->description !!}</p>
                             <div class="pricing-table-footer pt-5 pb-2">
                                 <a href="#" class="btn px-4 btn-outline-primary">Get Now</a>
                             </div>
@@ -54,8 +53,6 @@
         </div>
     </div>
     <!-- End Pricing -->
-
-
 
     <!-- Footer Area Start -->
     <footer class="footer-area">
