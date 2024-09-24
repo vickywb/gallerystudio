@@ -55,18 +55,23 @@
                                     <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message *" required></textarea>
                                 </div>
 
-                                <div class="col-12 col-sm-2 offset-md-5">
-                                    <div id="captcha-img" alt="captcha-img">
-                                        {!! Captcha::img('math') !!}
+                                <div class="col-12 col-md-3 offset-md-5">
+                                    <div class="input-group">
+                                        <div id="captcha-img" alt="captcha-img">
+                                            {!! Captcha::img('math') !!}
+                                        </div>
+
+                                       <button type="button" class="btn btn-outline-secondary btn-sm" id="refresh" style="margin-left: 2px"><i class="fa fa-refresh"></i></button>
                                     </div>
-                                    <div class="mt-2"></div>
-                                    <input type="text" name="captcha" class="form-control @error('errors') is-invalid @enderror" placeholder="Input Captcha" required>
-                                     @error('errors') 
-                                        <div class="invalid-feedback">{{ $message }}</div> 
-                                     @enderror
-                                     <button type="button" class="btn btn-secondary btn-sm mt-2" id="refresh">Refresh Captcha</button>
                                 </div>
                                 
+                                <div class="col-12 col-sm-2 offset-md-5">
+                                    <input type="text" name="captcha" class="form-control @error('errors') is-invalid @enderror" placeholder="Input Captcha" required>
+                                    @error('errors') 
+                                        <div class="invalid-feedback">{{ $message }}</div> 
+                                    @enderror
+                                </div>
+                                   
                                 <div class="col-12 text-center">
                                     <button type="submit" class="btn studio-btn mt-3"><img src="{{ asset('frontend/img/core-img/logo-icon.png') }}" alt=""> Send</button>
                                 </div>
@@ -145,11 +150,12 @@
         </div>
     </footer>
     <!-- Footer Area End -->
-@endsection
 
-@push('captcha-refresh')
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
-    <script>
+@endsection
+    
+@push('script')
+    <script type="text/javascript">
+        
         $(document).ready(function () {
             $('#refresh').click(function () {
                 $.ajax({
@@ -162,23 +168,4 @@
             });
         })
     </script>
-    {{-- <script>
-    $(document).ready(function() {
-
-        $('#refresh').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: "GET",
-                url: '{{ route('captcha.refresh') }}',
-                success: function(data) {
-                    alert(response);
-                    $('#captcha-img').html(data.captcha);
-                }
-            });
-            e.preventDefault();
-        });
-
-    });
-    </script> --}}
- 
 @endpush
