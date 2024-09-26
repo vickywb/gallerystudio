@@ -17,8 +17,17 @@ class PortofolioRepository {
         $portofolios = $this->model
             ->when(!empty($params['order']), function ($query) use ($params) {
                 return $query->orderByRaw($params['order']);
+            })
+            ->when(!empty($params['search']['title']), function ($query) use ($params) {
+                return $query->where('title', 'like', '%' . $params['search']['title'] . '%');
+            })
+            ->when(!empty($params['search']['category']), function ($query) use ($params) {
+                return $query->whereHas('category', function ($query) use ($params) {
+                    return $query->where('title', 'like', '%' . $params['search']['category'] . '%');
+                });
+                
             });
-
+      
         if (!empty($params['pagination'])) {
             return $portofolios->paginate($params['pagination'], ['*'], isset($params['pagination_name']) ? $params['pagination_name'] : 'page');
         }

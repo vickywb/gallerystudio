@@ -17,6 +17,15 @@ class ContactRepository {
         $contacts = $this->model
             ->when(!empty($params['order']), function ($query) use ($params) {
                 return $query->orderByRaw($params['order']);
+            })
+            ->when(!empty($params['search']['name']), function ($query) use ($params) {
+                return $query->where('name', 'like', '%' . $params['search']['name'] . '%');
+            })
+            ->when(!empty($params['search']['email']), function ($query) use ($params) {
+                return $query->where('email', 'like', '%' . $params['search']['email'] . '%');
+            })
+            ->when(!empty($params['search']['date']), function ($query) use ($params) {
+                return $query->where('created_at', 'like', '%' . $params['search']['date'] . '%');
             });
 
         if (!empty($params['pagination'])) {

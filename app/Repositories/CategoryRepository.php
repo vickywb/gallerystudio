@@ -17,6 +17,9 @@ class CategoryRepository {
         $categories = $this->model
             ->when(!empty($params['order']), function ($query) use ($params) {
                 return $query->orderByRaw($params['order']);
+            })
+            ->when(!empty($params['search']['title']), function ($query) use ($params) {
+                return $query->where('title', 'like', '%' . $params['search']['title'] . '%');
             });
         
         if (!empty($params['pagination'])) {
