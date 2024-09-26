@@ -12,6 +12,66 @@
             {{-- include message alert --}}
             @include('components._messages')
 
+            <!-- Search -->
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card mb-2">
+                      <form method="get">
+                            <div class="nav-item d-flex align-items-center">
+                            <input
+                                type="text"
+                                class="form-control border-0 shadow-none"
+                                placeholder="Search Name"
+                                aria-label="Search Name"
+                                name="search_name" value="{{ request('name') }}"/>
+                                <button class="btn btn-outline-light-secondary">
+                                  <i class="bx bx-search fs-4 lh-0"></i>
+                                </button>
+                            </div>
+                      </form>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="card mb-2">
+                      <form method="get">
+                            <div class="nav-item d-flex align-items-center">
+                            <input
+                                type="text"
+                                class="form-control border-0 shadow-none"
+                                placeholder="Search Email"
+                                aria-label="Search Email"
+                                name="search_email" value="{{ request('email') }}"/>
+                                <button class="btn btn-outline-light-secondary">
+                                  <i class="bx bx-search fs-4 lh-0"></i>
+                                </button>
+                            </div>
+                      </form>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="card mb-2">
+                      <form method="get">
+                            <div class="nav-item d-flex align-items-center">
+                            <input
+                                type="text"
+                                class="form-control border-0 shadow-none"
+                                placeholder="Search Date"
+                                aria-label="Search Date"
+                                name="search_date" value="{{ request('date') }}"/>
+                                <button class="btn btn-outline-light-secondary">
+                                  <i class="bx bx-search fs-4 lh-0"></i>
+                                </button>
+                            </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Search -->
+
             <!-- Basic Bootstrap Table -->
             <div class="card">
               <h5 class="card-header">About Index</h5>
@@ -62,6 +122,9 @@
                   @endforeach
                 </table>
               </div>
+            </div>
+            <div class="pagination justify-content-center mt-5">
+              {{ $contacts->links() }}
             </div>
         </div>
     </div>

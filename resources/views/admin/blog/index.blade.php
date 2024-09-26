@@ -12,6 +12,30 @@
             {{-- include message alert --}}
             @include('components._messages')
 
+            <!-- Search -->
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card mb-2">
+                      <form method="get">
+                            <div class="nav-item d-flex align-items-center">
+                            <input
+                                type="text"
+                                class="form-control border-0 shadow-none"
+                                placeholder="Search Title"
+                                aria-label="Search Title"
+                                name="search_title" value="{{ request('title') }}"/>
+                                <button class="btn btn-outline-light-secondary">
+                                  <i class="bx bx-search fs-4 lh-0"></i>
+                                </button>
+                            </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Search -->
+
             <!-- Basic Bootstrap Table -->
             <div class="card">
               <h5 class="card-header">About Index</h5>
