@@ -29,10 +29,13 @@ class BlogController extends Controller
         $this->fileRepository = $fileRepository;
     }
     
-    public function index()
+    public function index(Request $request)
     {
         $blogs = $this->blogRepository->get([
             'order' => 'title desc',
+            'search' => [
+                'title' => $request->search_title
+            ],
             'pagination' => 5
         ]);
 

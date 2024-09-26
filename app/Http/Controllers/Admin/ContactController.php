@@ -17,10 +17,16 @@ class ContactController extends Controller
         $this->contactRepository = $contactRepository;
     }
     
-    public function index()
+    public function index(Request $request)
     {
         $contacts = $this->contactRepository->get([
-            'order' => 'created_at desc'
+            'order' => 'created_at desc',
+            'search' => [
+                'name' => $request->search_name,
+                'email' => $request->search_email,
+                'date' => $request->search_date
+            ],
+            'pagination' => 5
         ]);
 
         return view('admin.contact.index', [

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repositories\FileRepository;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Builder;
 use App\Repositories\PortofolioRepository;
 use App\Http\Requests\PortofolioStoreRequest;
 use App\Http\Requests\PortofolioUpdateRequest;
@@ -30,10 +31,14 @@ class PortofolioController extends Controller
         $this->fileRepository = $fileRepository;
     }
     
-    public function index()
+    public function index(Request $request)
     {
         $portofolios = $this->portofolioRepository->get([
             'order' => 'title asc',
+            'search' => [
+                'title' => $request->search_title,
+                'category' => $request->search_category,
+            ],
             'pagination' => 5
         ]);
 
