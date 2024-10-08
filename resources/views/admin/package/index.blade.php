@@ -22,6 +22,7 @@
                       <th>No.</th>
                       <th>Title</th>
                       <th>Price</th>
+                      <th>Package Item</th>
                       <th>Description</th>
                       <th>Actions</th>
                     </tr>
@@ -32,13 +33,27 @@
                       <td>{{ $loop->iteration }}</td>
                       <td>{{ $package->title }}</td>
                       <td>Rp. {{ number_format($package->price, 2, ',', '.')  }}</td>
-                      <td>{!! Str::words($package->description, 15) !!}</td>
+                      <td>
+                        <ul>
+                            <li>{{ $package->packageDetail->person ?? '-' }} Person</li>
+                            <li>{{ $package->packageDetail->session ?? '-' }} Minute</li>
+                            <li>{{ $package->packageDetail->photo_shoot ?? '-' }} Photo Shoot</li>
+                            <li>{{ $package->packageDetail->edited_photo ?? '-' }} Edited Photo</li>
+                            <li>{{ $package->packageDetail->digital_photo ?? '-' }} Digital Photo</li>
+                            <li>{{ $package->packageDetail->printed_photo ?? '-' }} Printed Photo</li>
+                            <li>{{ $package->packageDetail->studio ?? '-' }} Studio</li>
+                        </ul>
+                      </td>
+                      <td>{!! Str::words($package->description, 10) !!}</td>
                       <td>
                         <div class="dropdown">
                           <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                             <i class="bx bx-dots-vertical-rounded"></i>
                           </button>
                           <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('admin.package.detail', $package) }}"
+                            ><i class="bx bx-detail me-1"></i> Detail</a
+                          >
                             <a class="dropdown-item" href="{{ route('admin.package.edit', $package) }}"
                               ><i class="bx bx-edit-alt me-1"></i> Edit</a
                             >
