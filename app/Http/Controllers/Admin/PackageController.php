@@ -129,4 +129,11 @@ class PackageController extends Controller
           'success' => 'Package has been successfully deleted.'
         ]);
     }
+
+    public function detail(Package $package)
+    {
+        return view('admin.package.detail', [
+            'package' => $package
+        ]);
+    }
 }
