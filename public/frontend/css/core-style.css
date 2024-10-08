@@ -1309,6 +1309,21 @@ span.accor-open {
     text-decoration: underline;
 }
 
+.pricing-list li {
+    padding: 5px;
+}
+
+.gold {
+    background-color: rgb(234, 217, 125);
+}
+
+.platinum {
+    background-color: rgb(241, 234, 234);
+}
+
+.diamond {
+    background-color: #eefdff;
+}
 
 @-webkit-keyframes sonar-effect {
     0% {
