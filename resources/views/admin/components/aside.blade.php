@@ -77,30 +77,30 @@
       </li>
 
       <!-- Components -->
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">User</span></li>
 
       <!-- User interface -->
       <li class="menu-item">
         <a href="javascript:void(0)" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-box"></i>
+          <i class="menu-icon tf-icons bx bx-user"></i>
           <div data-i18n="User">User</div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="ui-accordion.html" class="menu-link">
-              <div data-i18n="Accordion">Accordion</div>
+            <a href="{{ route('admin.user.index') }}" class="menu-link">
+              <div data-i18n="Index">Index</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="ui-alerts.html" class="menu-link">
-              <div data-i18n="Alerts">Alerts</div>
+            <a href="{{ route('admin.user.create') }}" class="menu-link">
+              <div data-i18n="Create">Create</div>
             </a>
           </li>
         </ul>
       </li>
 
-      <!-- Forms & Tables -->
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
+      <!-- Frontend display -->
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Frontend Display</li>
 
       <!-- Category -->
       <li class="menu-item {{ (request()->is('admin/category*')) ? 'active' : '' }}">
@@ -182,6 +182,24 @@
         </ul>
       </li>
 
+      <!-- Contact -->
+      <li class="menu-item {{ (request()->is('admin/contact*')) ? 'active' : '' }}">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bxs-contact"></i>
+          <div data-i18n="Form Layouts">Contact</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="{{ route('admin.contact.index') }}" class="menu-link">
+              <div data-i18n="Index">Index</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Product -->
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Product</span></li>
+
       <!-- Package -->
       <li class="menu-item {{ (request()->is('admin/package*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -201,22 +219,30 @@
           </li>
         </ul>
       </li>
-      
-      <!-- Contact -->
-      <li class="menu-item {{ (request()->is('admin/contact*')) ? 'active' : '' }}">
+
+      <!-- Product -->
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Transaction</span></li>
+
+      <!-- Package -->
+      <li class="menu-item {{ (request()->is('admin/package*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bxs-contact"></i>
-          <div data-i18n="Form Layouts">Contact</div>
+          <i class="menu-icon tf-icons bx bx-cart"></i>
+          <div data-i18n="Form Layouts">Transaction</div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="{{ route('admin.contact.index') }}" class="menu-link">
+            <a href="{{ route('admin.package.index') }}" class="menu-link">
               <div data-i18n="Index">Index</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{ route('admin.package.create') }}" class="menu-link">
+              <div data-i18n="Create">Create</div>
             </a>
           </li>
         </ul>
       </li>
-
+      
       <!-- Account -->
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Account</span></li>
       <li class="menu-item">
