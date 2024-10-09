@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PackageController as AdminPackageController;
 use App\Http\Controllers\Admin\PortofolioController as AdminPortofolioController;
+use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BlogController;
@@ -30,6 +31,7 @@ Route::get('/captcha-refresh', [ContactController::class, 'captchaRefresh'])->na
 
 //Checkout Package
 Route::get('/packages/{package:slug}/checkouts', [TransactionController::class, 'checkoutPage'])->name('checkout.package');
+Route::post('packages/{package:slug}/checkouts/store', [TransactionController::class, 'checkout'])->name('checkout.store');
 
 //Login Admin Route
 Route::controller(AuthController::class)
@@ -118,5 +120,10 @@ Route::prefix('admin')
         Route::controller(AdminUserController::class)->group(function () {
             Route::get('/users', 'index')->name('admin.user.index');
             Route::get('/users/create', 'create')->name('admin.user.create');
+        });
+
+        //Transaction
+        Route::controller(AdminTransactionController::class)->group(function () {
+            Route::get('/transactions', 'index')->name('admin.transaction.index');
         });
 });
