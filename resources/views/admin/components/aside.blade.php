@@ -103,7 +103,7 @@
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Frontend Display</li>
 
       <!-- Category -->
-      <li class="menu-item {{ (request()->is('admin/category*')) ? 'active' : '' }}">
+      <li class="menu-item {{ (request()->is('admin/categories*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-category"></i>
           <div data-i18n="Form Layouts">Category</div>
@@ -123,7 +123,7 @@
       </li>
 
       <!-- About -->
-      <li class="menu-item {{ (request()->is('admin/about*')) ? 'active' : '' }}">
+      <li class="menu-item {{ (request()->is('admin/abouts*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-detail"></i>
           <div data-i18n="Form Layouts">About</div>
@@ -143,7 +143,7 @@
       </li>
 
       <!-- Portofolio -->
-      <li class="menu-item {{ (request()->is('admin/portofolio*')) ? 'active' : '' }}">
+      <li class="menu-item {{ (request()->is('admin/portofolios*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-images"></i>
           <div data-i18n="Form Layouts">Portofolio</div>
@@ -183,7 +183,7 @@
       </li>
 
       <!-- Contact -->
-      <li class="menu-item {{ (request()->is('admin/contact*')) ? 'active' : '' }}">
+      <li class="menu-item {{ (request()->is('admin/contacts*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bxs-contact"></i>
           <div data-i18n="Form Layouts">Contact</div>
@@ -201,7 +201,7 @@
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Product</span></li>
 
       <!-- Package -->
-      <li class="menu-item {{ (request()->is('admin/package*')) ? 'active' : '' }}">
+      <li class="menu-item {{ (request()->is('admin/packages*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-purchase-tag"></i>
           <div data-i18n="Form Layouts">Package</div>
@@ -224,14 +224,14 @@
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Transaction</span></li>
 
       <!-- Package -->
-      <li class="menu-item {{ (request()->is('admin/package*')) ? 'active' : '' }}">
+      <li class="menu-item {{ (request()->is('admin/transcations*')) ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-cart"></i>
           <div data-i18n="Form Layouts">Transaction</div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="{{ route('admin.package.index') }}" class="menu-link">
+            <a href="{{ route('admin.transaction.index') }}" class="menu-link">
               <div data-i18n="Index">Index</div>
             </a>
           </li>
