@@ -62,23 +62,27 @@
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Role</th>
-                      <th>Image</th>
+                      <th>Package Name</th>
+                      <th>Invoice</th>
+                      <th>External ID</th>
+                      <th>Price</th>
+                      <th>Status</th>
+                      <th>Description</th>
+                      <th>Invoice URL</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   @foreach ($transactions as $transaction)
                   <tbody class="table-border-bottom-0">
                     <tr>
-                      <td>{{ $transaction->id }}</td>
-                      <td>{{ $transaction->name }}</td>
-                      <td>{{ $transaction->email }}</td>
-                      <td>{{ $transaction->name }}</td>
-                      <td>
-                        <img src="{{ asset('backend/img/no-image.png') }}" alt="Avatar" class="rounded-circle m-0" style="width: 75px; height: 75px" />
-                      </td>
+                      <td>{{ $loop->iteration }}</td>
+                      <td>{{ $transaction->package->title }}</td>
+                      <td>{{ $transaction->invoice_id }}</td>
+                      <td>{{ $transaction->external_id }}</td>
+                      <td>{{ $transaction->amount }}</td>
+                      <td>{{ $transaction->status }}</td>
+                      <td>{{ $transaction->description }}</td>
+                      <td>{{ $transaction->invoice_url }}</td>
                       <td>
                         <div class="dropdown">
                           <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -109,7 +113,7 @@
               </div>
             </div>
             <div class="pagination justify-content-center mt-5">
-              {{-- {{ $users->links() }} --}}
+              {{ $transactions->links() }}
             </div>
         </div>
     </div>
