@@ -916,6 +916,11 @@ img {
     font-size: 36px;
 }
 
+.blog-content p {
+    text-align: start;
+    font-family: monospace;
+}
+
 .contact-heading-text h2,
 .blog-content p {
     margin-bottom: 50px;
