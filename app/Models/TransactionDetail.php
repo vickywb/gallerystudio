@@ -11,6 +11,6 @@ class TransactionDetail extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'transaction_id', 'gross_amount', 'transaction_status'
+        'transaction_id', 'gross_amount', 'transaction_status', 'customer_detail_id'
     ];
 }

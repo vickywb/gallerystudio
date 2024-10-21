@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transaction extends Model
 {
     use HasFactory, SoftDeletes;
+
+    const STATUS_PENDING = 'PENDING';
+    const STATUS_PAID = 'PAID';
+    const STATUS_FAILED = 'FAILED';
 
     const STATUS_MAP = [
         'paid' =>  'PAID', 
@@ -17,18 +22,18 @@ class Transaction extends Model
         'settled' => 'SETTLED'
     ];
 
-    const PAYMENT_METHODS_MAP = ["CREDIT_CARD", "BCA", "BNI", "BSI", 
-        "BRI", "MANDIRI", "PERMATA", "SAHABAT_SAMPOERNA", "BNC", "ALFAMART", 
-        "INDOMARET", "OVO", "DANA", "SHOPEEPAY", "LINKAJA", "JENIUSPAY", "DD_BRI", 
-        "DD_BCA_KLIKPAY", "KREDIVO", "AKULAKU", "UANGME", "ATOME", "QRIS"
-    ];
-
     protected $fillable = [
         'invoice_id', 'package_id', 'amount', 'currency', 'description', 'invoice_duration',
-        'payment_methods'
+        'invoice_url', 'external_id'
     ];
 
     protected $casts = [
         'payment_methods' => 'array'
     ];
+
+    //Relationship
+    public function package(): BelongsTo
+    {
+        return $this->belongsTo(Package::class);
+    }
 }
