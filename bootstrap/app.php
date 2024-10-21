@@ -27,6 +27,10 @@ return Application::configure(basePath: dirname(__DIR__))
             guests: '/',
             users: '/admin'
         );
+
+        $middleware->validateCsrfTokens(except: [
+           '/callback-notification'
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
