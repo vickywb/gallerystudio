@@ -24,14 +24,23 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/abouts', [AboutController::class, 'index'])->name('about');
 Route::get('/portofolios', [PortofolioController::class, 'index'])->name('portofolio');
 Route::get('/blogs', [BlogController::class, 'index'])->name('blog');
+Route::get('/blogs/{blog:slug}', [BlogController::class, 'view'])->name('blog.detail');
 Route::get('/packages', [PackageController::class, 'index'])->name('package');
 Route::get('/contacts', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/captcha-refresh', [ContactController::class, 'captchaRefresh'])->name('captcha.refresh');
 
 //Checkout Package
-Route::get('/packages/{package:slug}/checkouts', [TransactionController::class, 'checkoutPage'])->name('checkout.package');
-Route::post('packages/{package:slug}/checkouts/store', [TransactionController::class, 'checkout'])->name('checkout.store');
+Route::get('/packages/{package:slug}/detail-packages', [TransactionController::class, 'checkoutPage'])->name('checkout.package');
+Route::post('/packages/payments/{package:slug}', [TransactionController::class, 'payment'])->name('checkout.payment');
+Route::controller(TransactionController::class)->group(function () {
+    Route::get('/packages/{package:slug}/detail-packages', 'checkoutPage')->name('checkout.package');
+    Route::post('/packages/payments/{package:slug}', 'checkoutStore')->name('checkout.package.store');
+    Route::get('/payments/{transaction:external_id}', 'paymentPage')->name('payment.page');
+    Route::post('/callback-notification', 'callbakNotification')->name('callbakNotification');
+    Route::get('/payments/success', 'paymentSuccess')->name('payment.success');
+    Route::get('/payments/failed', 'paymentFailed')->name('payment.failed');
+});
 
 //Login Admin Route
 Route::controller(AuthController::class)
