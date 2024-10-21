@@ -21,4 +21,9 @@ class Package extends Model
     {
         return $this->hasOne(PackageDetail::class);
     }
+
+    public function transaction(): HasOne
+    {
+        return $this->hasOne(Transaction::class);
+    }
 }
