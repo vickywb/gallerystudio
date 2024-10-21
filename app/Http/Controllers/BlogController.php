@@ -25,4 +25,11 @@ class BlogController extends Controller
             'blogs' => $blogs
         ]);
     }
+
+    public function view(Blog $blog)
+    {
+        return view('frontend.blog-detail', [
+            'blog' => $blog
+        ]);
+    }
 }
