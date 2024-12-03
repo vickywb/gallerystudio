@@ -16,15 +16,16 @@ class Transaction extends Model
     const STATUS_FAILED = 'FAILED';
 
     const STATUS_MAP = [
-        'paid' =>  'PAID', 
+        'paid' =>  'PAID',
+        'unpaid' => 'UNPAID',
         'pending' => 'PENDING', 
         'expired' => 'EXPIRED',
-        'settled' => 'SETTLED'
+        'settled' => 'SETTLED',
     ];
 
     protected $fillable = [
         'invoice_id', 'package_id', 'amount', 'currency', 'description', 'invoice_duration',
-        'invoice_url', 'external_id'
+        'invoice_url', 'external_id', 'status'
     ];
 
     protected $casts = [
