@@ -18,37 +18,27 @@ class TransactionController extends Controller
         ]);
     }
 
-    public function create()
+    public function edit(Transaction $transaction)
     {
-        //
+        $statusMaps = Transaction::STATUS_MAP;
+
+        return view('admin.transactions.edit', [
+            'transaction' => $transaction,
+            'statusMaps' => $statusMaps
+        ]);
     }
 
-    public function store(Request $request)
+    public function update(Request $request, Transaction $transaction)
     {
-        //
-    }
+        $data = $request->only([
+            'status'
+        ]);
 
-    public function show(string $id)
-    {
-        //
-    }
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(Transaction $transaction)
-    {
         try {
             DB::beginTransaction();
             
-            $transaction->delete();
+            $transaction->update($data);
+            $transaction->save();
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -60,7 +50,7 @@ class TransactionController extends Controller
         }
 
         return to_route('admin.transaction.index')->with([
-            'success' => 'Transaction has been successfully deleted.'
+            'success' => 'Transaction Status has been updated.'
         ]);
     }
 }
