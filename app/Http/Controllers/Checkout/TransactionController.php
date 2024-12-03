@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Checkout;
 
-use App\Http\Controllers\Controller;
-use App\Models\CustomerDetail;
-use App\Models\Package;
-use App\Models\Transaction;
-use App\Models\TransactionDetail;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Package;
 use Xendit\Configuration;
-use Xendit\Invoice\CreateInvoiceRequest;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
+use App\Models\CustomerDetail;
 use Xendit\Invoice\InvoiceApi;
+use App\Models\TransactionDetail;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Xendit\Invoice\InvoiceCallback;
+use App\Http\Controllers\Controller;
+use Xendit\Invoice\CreateInvoiceRequest;
 
 class TransactionController extends Controller
 {
@@ -52,8 +53,8 @@ class TransactionController extends Controller
                 'currency' => $currency,
                 'payer_email' => $request->email,
                 'status' => 'PENDING',
-                'success_redirect_url' => 'http://127.0.0.1:8000/package',
-                'failure_redirect_url' => 'http://127.0.0.1:8000',
+                'success_redirect_url' => 'http://localhost:8000/payments/status/success',
+                'failure_redirect_url' => 'http://localhost:8000/payments/status/failed',
                 'customer' => [
                     'phone_number' => $request->phone_number,
                     'given_names' => $request->name,
@@ -130,34 +131,27 @@ class TransactionController extends Controller
                 'message' => 'Callback Token is Invalid'
             ], 401);
         }
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Callback Sent'
-        ], 200);
-
+        
         // Log incoming payload for debugging
         Log::info('Xendit Callback Payload', $request->all());
-
+ 
         try {
             DB::beginTransaction();
 
-            $transaction = Transaction::where('external_id', $request->external_id)->first();
-            
+            $status = $request->status;
+            $external_id = $request->external_id;
+
+            $transaction = Transaction::where('external_id', $external_id)->first();
+
             if (!$transaction) {
-                Log::error('Transaction not found for external_id: ' . $request->external_id);
+                Log::error('Transaction not found for external_id: ' . $external_id);
                 return response()->json(['error' => 'Transaction not found'], 404);
             }
 
-            if ($transaction) {
-                if ($request->status === 'PAID') {
-                    $transaction->status(['status' => $request->status]);
-                    // $transaction->status = 'PAID';
-
-                } else {
-                    $transaction->update(['status' => $request->status]);
-                    // $transaction->status = 'FAILED';
-                }
+            if ($status === 'PAID') {
+                $transaction->update(['status' => $status]);
+            } else {
+                $transaction->update(['status' => $status]);
             }
            
             DB::commit();
