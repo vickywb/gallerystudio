@@ -31,15 +31,15 @@ Route::post('/contact/store', [ContactController::class, 'store'])->name('contac
 Route::get('/captcha-refresh', [ContactController::class, 'captchaRefresh'])->name('captcha.refresh');
 
 //Checkout Package
-Route::get('/packages/{package:slug}/detail-packages', [TransactionController::class, 'checkoutPage'])->name('checkout.package');
-Route::post('/packages/payments/{package:slug}', [TransactionController::class, 'payment'])->name('checkout.payment');
+// Route::get('/packages/{package:slug}/detail-packages', [TransactionController::class, 'checkoutPage'])->name('checkout.package');
+// Route::post('/packages/payments/{package:slug}', [TransactionController::class, 'payment'])->name('checkout.payment');
 Route::controller(TransactionController::class)->group(function () {
     Route::get('/packages/{package:slug}/detail-packages', 'checkoutPage')->name('checkout.package');
     Route::post('/packages/payments/{package:slug}', 'checkoutStore')->name('checkout.package.store');
     Route::get('/payments/{transaction:external_id}', 'paymentPage')->name('payment.page');
     Route::post('/callback-notification', 'callbakNotification')->name('callbakNotification');
-    Route::get('/payments/success', 'paymentSuccess')->name('payment.success');
-    Route::get('/payments/failed', 'paymentFailed')->name('payment.failed');
+    Route::get('/payments/status/success', 'paymentSuccess')->name('payment.success');
+    Route::get('/payments/status/failed', 'paymentFailed')->name('payment.failed');
 });
 
 //Login Admin Route
@@ -134,5 +134,7 @@ Route::prefix('admin')
         //Transaction
         Route::controller(AdminTransactionController::class)->group(function () {
             Route::get('/transactions', 'index')->name('admin.transaction.index');
+            Route::get('/transactions/{transaction}/edit', 'edit')->name('admin.transaction.edit');
+            Route::patch('/transactions/{transaction}/update', 'update')->name('admin.transaction.update');
         });
 });
