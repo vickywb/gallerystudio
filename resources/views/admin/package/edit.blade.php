@@ -15,7 +15,7 @@
 
         <div class="col-md-12">
           <div class="card mb-4">
-            <h5 class="card-header">Form Create Package</h5>
+            <h5 class="card-header">Form Edit Package</h5>
 
             <div class="card-body">
               <div class="mb-3">
