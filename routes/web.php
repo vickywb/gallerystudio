@@ -31,8 +31,9 @@ Route::post('/contact/store', [ContactController::class, 'store'])->name('contac
 Route::get('/captcha-refresh', [ContactController::class, 'captchaRefresh'])->name('captcha.refresh');
 
 //Checkout Package
-// Route::get('/packages/{package:slug}/detail-packages', [TransactionController::class, 'checkoutPage'])->name('checkout.package');
-// Route::post('/packages/payments/{package:slug}', [TransactionController::class, 'payment'])->name('checkout.payment');
+Route::get('/packages/{package:slug}/detail-packages', [TransactionController::class, 'checkoutPage'])->name('checkout.package');
+Route::post('/packages/payments/{package:slug}', [TransactionController::class, 'payment'])->name('checkout.payment');
+
 Route::controller(TransactionController::class)->group(function () {
     Route::get('/packages/{package:slug}/detail-packages', 'checkoutPage')->name('checkout.package');
     Route::post('/packages/payments/{package:slug}', 'checkoutStore')->name('checkout.package.store');
