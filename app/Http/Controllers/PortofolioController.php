@@ -11,7 +11,7 @@ class PortofolioController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $portofolios = Portofolio::all();
+        $portofolios = Portofolio::with('category')->latest()->get();
         
         return view('frontend.portofolio', [
             'portofolios' => $portofolios,

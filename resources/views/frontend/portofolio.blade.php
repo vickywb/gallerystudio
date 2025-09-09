@@ -21,7 +21,7 @@
             
                     <!-- Single Item -->
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item {{ $portofolio->category->title }}">
-                        <img src="{{ $image->showFile ?? asset('frontend/img/no-image.png') }}" alt="portofolio-image">
+                        <img src="{{ $image->showFile ?? asset('frontend/img/no-image.png') }}" alt="portofolio-image-category-{{ $portofolio->category->title }}">
                         <div class="hover_overlay">
                             <a class="gallery_img" href="{{ $image->showFile ?? asset('frontend/img/no-image.png') }}"><i class="fa fa-eye"></i></a>
                         </div>
