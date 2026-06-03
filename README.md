@@ -1,6 +1,6 @@
 # Gallery Studio
 
-Ini adalah aplikasi web pembelajaran menggunakan **Laravel 11** untuk portfolio dan e-commerce studio kreatif. Web ini menggabungkan sistem manajemen konten (CMS) untuk portfolio dan blog dengan fitur e-commerce untuk menjual paket layanan.
+Ini adalah aplikasi web pembelajaran untuk portfolio dan e-commerce studio kreatif. Web ini menggabungkan sistem manajemen konten (CMS) untuk portfolio dan blog dengan fitur e-commerce untuk menjual paket layanan studio photo.
 
 ## 📌 Teknologi Utama
 
